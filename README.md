@@ -26,7 +26,7 @@ BookDex is a book listing app that provides users with book information.
 
 Here's a GIF of how the app works:
 
-<img src="https://user-images.githubusercontent.com/35745973/82740030-c7bc0800-9cf9-11ea-989a-1343b0411a62.gif" width=250><br>
+<img src="https://user-images.githubusercontent.com/35745973/82741062-51bc9e80-9d03-11ea-8f50-bd2ce1dd7deb.gif" width=250><br>
 
 ## APIs
 
