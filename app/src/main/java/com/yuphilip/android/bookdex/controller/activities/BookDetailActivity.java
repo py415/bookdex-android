@@ -1,18 +1,25 @@
 package com.yuphilip.android.bookdex.controller.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.bumptech.glide.Glide;
 import com.codepath.android.bookdex.R;
+import com.yuphilip.android.bookdex.model.Book;
+
+import org.parceler.Parcels;
 
 public class BookDetailActivity extends AppCompatActivity {
-    private ImageView ivBookCover;
-    private TextView tvTitle;
-    private TextView tvAuthor;
+    ImageView ivBookCover;
+    TextView tvTitle;
+    TextView tvAuthor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +31,23 @@ public class BookDetailActivity extends AppCompatActivity {
         tvAuthor = (TextView) findViewById(R.id.tvAuthor);
 
         // Extract book object from intent extras
+        Book clickedBook = (Book) Parcels.unwrap(getIntent().getParcelableExtra("clickedBook"));
 
         // Use book object to populate data into views
+        tvTitle.setText(clickedBook.getTitle());
+        tvAuthor.setText(clickedBook.getAuthor());
+        Glide.with(this)
+                .load(Uri.parse(clickedBook.getCoverUrl()))
+                .placeholder(R.drawable.ic_nocover)
+                .into(ivBookCover);
+
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+        toolbar.setTitle(clickedBook.getTitle());
+        setSupportActionBar(toolbar);
+
     }
 
 

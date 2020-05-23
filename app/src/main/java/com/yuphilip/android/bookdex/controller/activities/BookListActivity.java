@@ -1,5 +1,6 @@
 package com.yuphilip.android.bookdex.controller.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -57,13 +59,17 @@ public class BookListActivity extends AppCompatActivity {
             public void onItemClick(View itemView, int position) {
                 Toast.makeText(
                         BookListActivity.this,
-                        "An item at position " + position + " clicked!",
+                        "Loading book \"" + abooks.get(position).getTitle() + "\"...",
                         Toast.LENGTH_SHORT).show();
 
                 // Handle item click here:
                 // Create Intent to start BookDetailActivity
+                Intent bookDetailsIntent = new Intent(BookListActivity.this, BookDetailActivity.class);
                 // Get Book at the given position
+                Book clickedBook = abooks.get(position);
+                bookDetailsIntent.putExtra("clickedBook", Parcels.wrap(clickedBook));
                 // Pass the book into details activity using extras
+                startActivity(bookDetailsIntent);
             }
         });
 
@@ -72,8 +78,6 @@ public class BookListActivity extends AppCompatActivity {
 
         // Set layout manager to position the items
         rvBooks.setLayoutManager(new LinearLayoutManager(this));
-
-        // Fetch the data remotely
     }
 
     // Executes an API call to the OpenLibrary search endpoint, parses the results
