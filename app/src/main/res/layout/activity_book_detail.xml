@@ -38,8 +38,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textAlignment="center"
         tools:text="@string/book_author" />
+
+    <TextView
+        android:id="@+id/tvPublisher"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        tools:text="@string/book_publisher" />
 
 </LinearLayout>

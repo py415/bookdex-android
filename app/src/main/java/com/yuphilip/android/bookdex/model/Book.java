@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Book {
     private String openLibraryId;
     private String author;
+    private String publisher;
     private String title;
 
     public Book(String openLibraryId, String author, String title) {
@@ -35,6 +36,8 @@ public class Book {
         return author;
     }
 
+    public String getPublisher() { return publisher; }
+
     // Get book cover from covers API
     public String getCoverUrl() {
         return "https://covers.openlibrary.org/b/olid/" + openLibraryId + "-L.jpg?default=false";
@@ -54,6 +57,7 @@ public class Book {
             }
             book.title = jsonObject.has("title_suggest") ? jsonObject.getString("title_suggest") : "";
             book.author = getAuthor(jsonObject);
+            book.publisher = getPublisher(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -72,6 +76,21 @@ public class Book {
                 authorStrings[i] = authors.getString(i);
             }
             return TextUtils.join(", ", authorStrings);
+        } catch (JSONException e) {
+            return "";
+        }
+    }
+
+    // Return comma separated publisher list when there is more than one author
+    private static String getPublisher(final JSONObject jsonObject) {
+        try {
+            final JSONArray publishers = jsonObject.getJSONArray("author_name");
+            int numPublishers = publishers.length();
+            final String[] publisherStrings = new String[numPublishers];
+            for (int i = 0; i < numPublishers; ++i) {
+                publisherStrings[i] = publishers.getString(i);
+            }
+            return TextUtils.join(", ", publisherStrings);
         } catch (JSONException e) {
             return "";
         }

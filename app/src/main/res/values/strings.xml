@@ -7,5 +7,6 @@
     <string name="title_activity_book_detail">BookDetailActivity</string>
 
     <string name="book_author">Book Author</string>
+    <string name="book_publisher">Book Publisher</string>
     <string name="book_title">Book Title</string>
 </resources>
