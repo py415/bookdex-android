@@ -16,9 +16,9 @@ BookDex is a book listing app that provides users with book information.
 ## Product Specs
 ### User Stories
 
-- [ ] User shall be able to see a list of books from the [OpenLibrary API](https://openlibrary.org/developers/api).
+- [X] User shall be able to see a list of books from the [OpenLibrary API](https://openlibrary.org/developers/api).
 - [ ] User shall be able to click a book cell to see more details about the selected book.
-- [ ] User shall be able to search for books with a title.
+- [X] User shall be able to search for books with a title.
 - [ ] User shall be able to see a progress bar when fetching book details, indicating estimated time until book details are loaded.
 - [ ] User shall be able recommend books to friends.
 
