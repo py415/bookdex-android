@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,10 +33,8 @@ public class BookListActivity extends AppCompatActivity {
 
     //region Properties
 
-    private RecyclerView rvBooks;
     private BookAdapter bookAdapter;
-    private BookClient client;
-    private ArrayList<Book> abooks;
+    private ArrayList<Book> books;
     // Instance of the progress action-view
     private MenuItem miActionProgressItem;
 
@@ -51,30 +48,30 @@ public class BookListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_list);
 
         // Find the toolbar view inside the activity layout
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         toolbar.setTitle("BookDex");
         setSupportActionBar(toolbar);
 
-        rvBooks = findViewById(R.id.rvBooks);
-        abooks = new ArrayList<>();
+        RecyclerView rvBooks = findViewById(R.id.rvBooks);
+        books = new ArrayList<>();
 
         // Initialize the adapter
-        bookAdapter = new BookAdapter(this, abooks);
+        bookAdapter = new BookAdapter(this, books);
         bookAdapter.setOnItemClickListener(new BookAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
                 Toast.makeText(
                         BookListActivity.this,
-                        "Loading book \"" + abooks.get(position).getTitle() + "\"...",
+                        "Loading book \"" + books.get(position).getTitle() + "\"...",
                         Toast.LENGTH_SHORT).show();
 
                 // Handle item click here:
                 // Create Intent to start BookDetailActivity
                 Intent bookDetailsIntent = new Intent(BookListActivity.this, BookDetailActivity.class);
                 // Get Book at the given position
-                Book clickedBook = abooks.get(position);
+                Book clickedBook = books.get(position);
                 bookDetailsIntent.putExtra("clickedBook", Parcels.wrap(clickedBook));
                 // Pass the book into details activity using extras
                 startActivity(bookDetailsIntent);
@@ -100,14 +97,14 @@ public class BookListActivity extends AppCompatActivity {
 
     }
 
-    public void showProgressBar() {
+    private void showProgressBar() {
 
         // Show progress item
         miActionProgressItem.setVisible(true);
 
     }
 
-    public void hideProgressBar() {
+    private void hideProgressBar() {
 
         // Hide progress item
         miActionProgressItem.setVisible(false);
@@ -119,7 +116,7 @@ public class BookListActivity extends AppCompatActivity {
     private void fetchBooks(String query) {
 
         showProgressBar();
-        client = new BookClient();
+        BookClient client = new BookClient();
         client.getBooks(query, new JsonHttpResponseHandler() {
 
             @Override
@@ -132,11 +129,10 @@ public class BookListActivity extends AppCompatActivity {
                         // Parse json array into array of model objects
                         final ArrayList<Book> books = Book.fromJson(docs);
                         // Remove all books from the adapter
-                        abooks.clear();
+                        BookListActivity.this.books.clear();
                         // Load model objects into the adapter
-                        for (Book book : books) {
-                            abooks.add(book); // add book through the adapter
-                        }
+                        // add book through the adapter
+                        BookListActivity.this.books.addAll(books);
                         bookAdapter.notifyDataSetChanged();
                         hideProgressBar();
                     }
@@ -164,7 +160,7 @@ public class BookListActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_book_list, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

@@ -36,11 +36,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
     //region Properties
 
-    private ImageView ivBookCover;
     private TextView tvTitle;
-    private TextView tvAuthor;
-    private TextView tvPublisher;
-    private TextView tvPublished;
     private ShareActionProvider miShareAction;
     private Intent shareIntent;
 
@@ -54,11 +50,11 @@ public class BookDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
 
         // Fetch views
-        ivBookCover = findViewById(R.id.ivBookCover);
+        ImageView ivBookCover = findViewById(R.id.ivBookCover);
         tvTitle = findViewById(R.id.tvTitle);
-        tvAuthor = findViewById(R.id.tvAuthor);
-        tvPublisher = findViewById(R.id.tvPublisher);
-        tvPublished = findViewById(R.id.tvPublished);
+        TextView tvAuthor = findViewById(R.id.tvAuthor);
+        TextView tvPublisher = findViewById(R.id.tvPublisher);
+        TextView tvPublished = findViewById(R.id.tvPublished);
 
         // Extract book object from intent extras
         Book clickedBook = Parcels.unwrap(getIntent().getParcelableExtra("clickedBook"));
@@ -66,7 +62,7 @@ public class BookDetailActivity extends AppCompatActivity {
         // Use book object to populate data into views
         tvTitle.setText(clickedBook.getTitle());
         tvAuthor.setText(clickedBook.getAuthor());
-        tvPublisher.setText("Published by " + clickedBook.getPublisher());
+        tvPublisher.setText(String.format("Published by %s", clickedBook.getPublisher()));
         tvPublished.setText(clickedBook.getPublishedDate());
 
         Glide.with(this)
@@ -99,7 +95,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     // Returns the URI path to the Bitmap displayed in specified ImageView
-    public Uri getLocalBitmapUri(ImageView imageView) {
+    private Uri getLocalBitmapUri(ImageView imageView) {
 
         // Extract Bitmap from ImageView drawable
         Drawable drawable = imageView.getDrawable();
@@ -133,7 +129,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     // Gets the image URI and setup the associated share intent to hook into the provider
-    public void prepareShareIntent() {
+    private void prepareShareIntent() {
 
         ImageView ivImage = findViewById(R.id.ivBookCover);
         // Fetch Bitmap Uri locally
@@ -148,7 +144,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     // Attaches the share intent to the share menu item provider
-    public void attachShareIntentAction() {
+    private void attachShareIntentAction() {
 
         if (miShareAction != null && shareIntent != null)
             miShareAction.setShareIntent(shareIntent);

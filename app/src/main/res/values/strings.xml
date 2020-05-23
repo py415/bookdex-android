@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">BookDex</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_book_detail">BookDetailActivity</string>
 
@@ -10,5 +9,9 @@
     <string name="book_publisher">Book Publisher</string>
     <string name="book_title">Book Title</string>
     <string name="book_published">Published Date</string>
+    <string name="content_description">Book Cover</string>
+    <string name="share">Share</string>
+    <string name="search">Search</string>
+    <string name="loading">Loading…</string>
 
 </resources>

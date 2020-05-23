@@ -14,55 +14,30 @@ public class Book {
 
     //region Properties
 
-    private String openLibraryId;
-    private String author;
-    private String publisher;
-    private String publishedDate;
-    private String title;
+    String openLibraryId;
+    String author;
+    String publisher;
+    String publishedDate;
+    String title;
 
     //endregion
 
-    public Book(String openLibraryId, String author, String title) {
+    public Book(String openLibraryId, String author, String title, String publisher, String publishedDate) {
 
         this.openLibraryId = openLibraryId;
         this.author = author;
         this.title = title;
+        this.publisher = publisher;
+        this.publishedDate = publishedDate;
 
     }
 
-    public Book() {
-
-    }
-
-    public String getOpenLibraryId() {
-        return openLibraryId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public String getPublishedDate() {
-        return publishedDate;
-    }
-
-    // Get book cover from covers API
-    public String getCoverUrl() {
-
-        return "https://covers.openlibrary.org/b/olid/" + openLibraryId + "-L.jpg?default=false";
+    private Book() {
 
     }
 
     // Returns a Book given the expected JSON
-    public static Book fromJson(JSONObject jsonObject) {
+    private static Book fromJson(JSONObject jsonObject) {
 
         Book book = new Book();
 
@@ -113,7 +88,7 @@ public class Book {
     private static String getPublisher(final JSONObject jsonObject) {
 
         try {
-            final JSONArray publishers = jsonObject.getJSONArray("author_name");
+            final JSONArray publishers = jsonObject.getJSONArray("publisher");
             int numPublishers = publishers.length();
             final String[] publisherStrings = new String[numPublishers];
             for (int i = 0; i < numPublishers; ++i) {
@@ -171,6 +146,33 @@ public class Book {
         }
 
         return books;
+
+    }
+
+    public String getOpenLibraryId() {
+        return openLibraryId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public String getPublishedDate() {
+        return publishedDate;
+    }
+
+    // Get book cover from covers API
+    public String getCoverUrl() {
+
+        return "https://covers.openlibrary.org/b/olid/" + openLibraryId + "-L.jpg?default=false";
 
     }
 

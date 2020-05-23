@@ -11,7 +11,7 @@ public class BookClient {
     //region Properties
 
     private static final String API_BASE_URL = "https://openlibrary.org/";
-    private AsyncHttpClient client;
+    private final AsyncHttpClient client;
 
     //endregion
 
@@ -19,15 +19,15 @@ public class BookClient {
         this.client = new AsyncHttpClient();
     }
 
-    private String getApiUrl(String relativeUrl) {
-        return API_BASE_URL + relativeUrl;
+    private String getApiUrl() {
+        return API_BASE_URL + "search.json?q=";
     }
 
     // Method for accessing the search API
     public void getBooks(final String query, JsonHttpResponseHandler handler) {
 
         try {
-            String url = getApiUrl("search.json?q=");
+            String url = getApiUrl();
             client.get(url + URLEncoder.encode(query, "utf-8"), handler);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
