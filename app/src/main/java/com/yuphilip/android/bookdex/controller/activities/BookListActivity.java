@@ -16,11 +16,11 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.codepath.android.bookdex.R;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.yuphilip.android.bookdex.R;
 import com.yuphilip.android.bookdex.controller.adapters.BookAdapter;
 import com.yuphilip.android.bookdex.model.Book;
 import com.yuphilip.android.bookdex.model.net.BookClient;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,16 +30,24 @@ import java.util.ArrayList;
 
 import okhttp3.Headers;
 
-
 public class BookListActivity extends AppCompatActivity {
+
+    //region Properties
+
     private RecyclerView rvBooks;
     private BookAdapter bookAdapter;
     private BookClient client;
     private ArrayList<Book> abooks;
+    // Instance of the progress action-view
+    private MenuItem miActionProgressItem;
+
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_book_list);
 
         // Find the toolbar view inside the activity layout
@@ -78,14 +86,41 @@ public class BookListActivity extends AppCompatActivity {
 
         // Set layout manager to position the items
         rvBooks.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+
+        // Return to finish
+        return super.onPrepareOptionsMenu(menu);
+
+    }
+
+    public void showProgressBar() {
+
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+
+    }
+
+    public void hideProgressBar() {
+
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
+
     }
 
     // Executes an API call to the OpenLibrary search endpoint, parses the results
     // Converts them into an array of book objects and adds them to the adapter
     private void fetchBooks(String query) {
+
+        showProgressBar();
         client = new BookClient();
         client.getBooks(query, new JsonHttpResponseHandler() {
-
 
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON response) {
@@ -103,6 +138,7 @@ public class BookListActivity extends AppCompatActivity {
                             abooks.add(book); // add book through the adapter
                         }
                         bookAdapter.notifyDataSetChanged();
+                        hideProgressBar();
                     }
                 } catch (JSONException e) {
                     // Invalid JSON format, show appropriate error.
@@ -117,10 +153,12 @@ public class BookListActivity extends AppCompatActivity {
                         "Request failed with code " + statusCode + ". Response message: " + responseString);
             }
         });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_book_list, menu);
@@ -146,11 +184,14 @@ public class BookListActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         return super.onCreateOptionsMenu(menu);
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -162,5 +203,7 @@ public class BookListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+
     }
+
 }

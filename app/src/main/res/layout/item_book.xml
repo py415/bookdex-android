@@ -28,4 +28,5 @@
         android:layout_toRightOf="@+id/ivBookCover"
         android:text="Author"
         android:textSize="12sp" />
+
 </RelativeLayout>

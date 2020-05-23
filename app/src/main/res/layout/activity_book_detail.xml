@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.yuphilip.android.bookdex.controller.activities.BookDetailActivity">
@@ -11,45 +10,56 @@
     <include
         layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/ivBookCover"
-        android:layout_gravity="center"
         android:layout_width="280dp"
         android:layout_height="280dp"
-        android:layout_marginTop="32dp" />
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="8dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textSize="32sp"
         android:textAlignment="center"
+        android:textSize="32sp"
         tools:text="@string/book_title" />
 
     <TextView
         android:id="@+id/tvAuthor"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:textSize="24sp"
         android:textAlignment="center"
+        android:textSize="24sp"
         tools:text="@string/book_author" />
 
     <TextView
         android:id="@+id/tvPublisher"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:textSize="16sp"
         android:textAlignment="center"
+        android:textSize="16sp"
         tools:text="@string/book_publisher" />
+
+    <TextView
+        android:id="@+id/tvPublished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        tools:text="@string/book_published" />
 
 </LinearLayout>

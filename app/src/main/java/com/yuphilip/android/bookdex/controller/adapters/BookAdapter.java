@@ -10,23 +10,29 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.codepath.android.bookdex.R;
 import com.yuphilip.android.bookdex.GlideApp;
+import com.yuphilip.android.bookdex.R;
 import com.yuphilip.android.bookdex.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
+
+    //region Properties
+
     private List<Book> mBooks;
     private Context mContext;
-
     // Define listener member variable
     private OnItemClickListener listener;
 
+    //endregion
+
     // Define the listener interface
     public interface OnItemClickListener {
+
         void onItemClick(View itemView, int position);
+
     }
 
     // Define the method that allows the parent activity or fragment to define the listener
@@ -36,18 +42,20 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
     // View lookup cache
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView ivCover;
-        public TextView tvTitle;
-        public TextView tvAuthor;
+
+        private ImageView ivCover;
+        private TextView tvTitle;
+        private TextView tvAuthor;
 
         public ViewHolder(final View itemView, final OnItemClickListener clickListener) {
+
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            ivCover = (ImageView)itemView.findViewById(R.id.ivBookCover);
-            tvTitle = (TextView)itemView.findViewById(R.id.tvTitle);
-            tvAuthor = (TextView)itemView.findViewById(R.id.tvAuthor);
+            ivCover = (ImageView) itemView.findViewById(R.id.ivBookCover);
+            tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            tvAuthor = (TextView) itemView.findViewById(R.id.tvAuthor);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -55,17 +63,22 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
                     clickListener.onItemClick(itemView, getAdapterPosition());
                 }
             });
+
         }
+
     }
 
     public BookAdapter(Context context, ArrayList<Book> aBooks) {
+
         mBooks = aBooks;
         mContext = context;
+
     }
 
     // Usually involves inflating a layout from XML and returning the holder
     @Override
     public BookAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -75,12 +88,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         // Return a new holder instance
         BookAdapter.ViewHolder viewHolder = new BookAdapter.ViewHolder(bookView, listener);
         return viewHolder;
-    }
 
+    }
 
     // Involves populating data into the item through holder
     @Override
     public void onBindViewHolder(BookAdapter.ViewHolder viewHolder, int position) {
+
         // Get the data model based on position
         Book book = mBooks.get(position);
 
@@ -92,6 +106,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
                 .placeholder(R.drawable.ic_nocover)
                 .into(viewHolder.ivCover);
         // Return the completed view to render on screen
+
     }
 
     // Returns the total count of items in the list
