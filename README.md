@@ -1,19 +1,19 @@
-# BookDex
+# 📖 BookDex
 
-## Table of Contents
-1. [Overview](#Overview)
-2. [Product Specs](#Product-Specs)
-3. [App Walkthrough](#App-Walkthrough)
-4. [APIs](#APIs)
-5. [Libraries](#Libraries)
-6. [Credits](#Credits)
+## 📋 Table of Contents
+1. [Overview](#-Overview)
+2. [Product Specs](#-Product-Specs)
+3. [App Walkthrough](#-App-Walkthrough)
+4. [APIs](#-APIs)
+5. [Libraries](#-Libraries)
+6. [Credits](#-Credits)
 
-## Overview
+## 👀 Overview
 ### Description
 
 BookDex is a book listing app that provides users with book information.
 
-## Product Specs
+## 📕 Product Specs
 ### User Stories
 
 - [X] User shall be able to see a list of books from the [OpenLibrary API](https://openlibrary.org/developers/api).
@@ -22,21 +22,21 @@ BookDex is a book listing app that provides users with book information.
 - [x] User shall be able to see a progress bar when fetching book details, indicating estimated time until book details are loaded.
 - [x] User shall be able recommend books to friends.
 
-## App Walkthrough
+## 🎬 App Walkthrough
 
 Here's a GIF of how the app works:
 
-<img src="https://raw.githubusercontent.com/py415/app-resources/master/android/android-bookdex.gif" width="250" />
+<img src="https://raw.githubusercontent.com/py415/app-resources/master/GIFs/android/android-bookdex.gif" width="250" />
 
-## APIs
+## 🔑 APIs
 
 - [OpenLibrary API](https://openlibrary.org/developers/api) - Provides books details and book cover images.
 
-## Libraries
+## 📚 Libraries
 
 - [AsyncHttpClient](https://github.com/codepath/AsyncHttpClient) - For asynchronous network requests.
 - [Picasso](http://square.github.io/picasso/) - For remote image loading.
 
-## Credits
+## 💳 Credits
 
 >This is a companion project to CodePath's Professional Android Course, check out the full course at [www.codepath.org](https://codepath.org/).
